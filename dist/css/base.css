@@ -1,0 +1,257 @@
+* {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+#box2{
+	position: absolute;
+	z-index: 100;
+	position: relative;
+	
+}
+/*header {
+	background-color: #d43d3d;
+	position: fixed;
+	z-index: 10;
+	width: 100%;
+	text-align: center;
+	color: white;
+	height: 50px;
+	line-height: 50px;
+	top: 0px;
+}*/
+header{
+	width: 100%;
+	height: 50px;
+	position: relative;
+	background: #c7011a;
+	position: fixed;
+	z-index: 9;		
+}
+header img{
+	width: 35%;
+	height: 50px;
+}
+header p{
+	font-size: 21px;
+	position: absolute;
+	left: 36%;
+	top:20%;
+	color: #fff;
+}
+header .headerbox1{
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+header .headerbox2{
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+header .headerbox2 img{
+	float: right;
+}
+aside {
+	position: fixed;
+	top: 50px;
+	height: 35px;
+	width: 100%;
+	z-index: 9;			
+	background: #f7f7f7;
+}
+aside a{
+	display:block;	
+	float: left;
+	color: #a3a3a3;
+	
+	margin-top: 5px;
+	height: 25px;
+	line-height: 25px;
+}
+aside .mar_l15{
+	margin-left:15px ;
+}
+aside .mar_l28{
+	margin-left:28px ;
+}
+
+
+.isNavRed{
+	color: #cf001c;
+	border-bottom: 2px solid #cf001c;
+}
+
+footer{
+	
+	position: fixed;
+	z-index: 10;
+	bottom: 0px;
+	width: 100%;
+	height: 50px;
+	background: #dddddd;
+}
+footer img{
+	height: 50px;
+	margin-left: 50px;
+}
+/*底层*/
+body{
+	height: 100%;
+}
+html{
+	height: 100%;
+}
+.box{
+	width: 100%;
+	height: 100%;
+	color:#fff ;
+	font-size: 25px;
+	background: url('../../image/book2.png') no-repeat 0 0;
+	background-size: 100% 100%;
+	z-index: 100;
+	position: absolute;
+	display: none;
+}
+.blo{
+	display: block;
+}
+.box p{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-indent: 65px;
+	margin-top: 20px;
+	text-decoration: none;
+	color: #fff;
+}
+.box .p1{
+	background: url('../../image/per.png') no-repeat 20px 0;
+	background-size: 35px 35px;
+}
+.box .p2{
+	background: url('../../image/tasklogo.png') no-repeat 20px 0;
+	background-size: 35px 35px;
+}
+.box .p3{
+	background: url('../../image/xiaoxi.png') no-repeat 20px 0;
+	background-size: 35px 35px;
+}
+.box .p4{
+	background: url('../../image/setting.png') no-repeat 20px 0;
+	background-size: 35px 35px;
+}
+
+.plist{
+	position: absolute;
+	top: 22%;
+}
+.p5{
+	text-decoration: none;
+	color: #fff;
+}
+
+
+
+/*右层*/
+body{height: 100%;}
+html{height: 100%;}
+.personal{
+	background: #eee;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	margin-left: 100%;
+	display: none;
+	z-index: 200;
+}
+.bb{
+	display: block;
+}
+.pertop{
+	width: 100%;
+	height: 50px;
+	background: #fe4d61;
+	color: #fff;
+	font-size: 20px;
+	line-height: 50px;
+}
+.pertop a{
+	margin-left: 20px;
+}
+.permid{
+	margin-top:30px ;
+	
+}
+.permid p{
+	margin-left: 7%;	
+}
+.permid form{
+	margin-top: 20px;
+}
+.permid input{
+	width: 80%;
+	height: 30px;
+	outline: none;
+	padding:10px;
+	font-size: 16px;
+	text-indent: 40px;
+	margin-left: 7%;
+
+}
+.permid_inp1{
+	border: 1px solid #666;
+	background: url('../../image/per1.png') no-repeat 3px 5px;
+	background-size:35px 35px;
+}
+.permid_inp2{
+	border: 1px solid #666;
+	border-top: none;
+	background: url('../../image/per2.png') no-repeat 3px 5px;
+	background-size:35px 35px;
+}
+.permid_dl{
+	display: block;
+	cursor: pointer;
+	width: 85%;
+	height: 50px;
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+	line-height: 50px;
+	background: #fe4d61;
+	text-decoration: none;
+	font-weight: bold;
+	margin-left: 7%;
+	margin-top: 20px;
+}
+.perfoot{
+	font-size: 16px;
+	
+}
+
+.perfoot p{
+	margin-top: 20px;
+	margin-left: 20%;
+	
+}
+.perfoot a{
+	text-decoration: none;
+	color: #ff9c71;
+}
+.perfoot_p img{
+	height: 60px;
+	width: 60px;
+	margin-left: 9%;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,100 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{height: 100%;}
+html{height: 100%;}
+.personal{
+	background: #eee;
+	height: 100%;
+	width: 100%;
+}
+.pertop{
+	width: 100%;
+	height: 50px;
+	background: #fe4d61;
+	color: #fff;
+	font-size: 20px;
+	line-height: 50px;
+}
+.pertop a{
+	margin-left: 20px;
+}
+.permid{
+	margin-top:30px ;
+	
+}
+.permid p{
+	margin-left: 7%;	
+}
+.permid form{
+	margin-top: 20px;
+}
+.permid input{
+	width: 80%;
+	height: 30px;
+	outline: none;
+	padding:10px;
+	font-size: 16px;
+	text-indent: 40px;
+	margin-left: 7%;
+
+}
+.permid_inp1{
+	border: 1px solid #666;
+	background: url('../../image/per1.png') no-repeat 3px 5px;
+	background-size:35px 35px;
+}
+.permid_inp2{
+	border: 1px solid #666;
+	border-top: none;
+	background: url('../../image/per2.png') no-repeat 3px 5px;
+	background-size:35px 35px;
+}
+.permid_dl{
+	display: block;
+	cursor: pointer;
+	width: 85%;
+	height: 50px;
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+	line-height: 50px;
+	background: #fe4d61;
+	text-decoration: none;
+	font-weight: bold;
+	margin-left: 7%;
+	margin-top: 20px;
+}
+.perfoot{
+	font-size: 16px;
+	
+}
+
+.perfoot p{
+	margin-top: 20px;
+	margin-left: 20%;
+	
+}
+.perfoot a{
+	text-decoration: none;
+	color: #ff9c71;
+}
+.perfoot_p img{
+	height: 60px;
+	width: 60px;
+	margin-left: 9%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

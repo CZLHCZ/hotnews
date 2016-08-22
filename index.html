@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html ng-app="yin">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+		<title></title>
+		<script src="dist/js/angular.js"></script>
+		<script src="dist/js/angular-route.js"></script>
+		<script src="dist/js/swiper.js"></script>
+		<link rel="stylesheet" href="dist/css/base.css" />
+		<link rel="stylesheet" href="dist/css/swiper.css">
+		
+		<script src="dist/js/jquery-1.12.0.js"></script>
+	</head>
+
+	<body>
+		<!--底层-->
+		<div class="box">
+			<div class="plist">
+				<p><a class="p5" href="">首页</a></p>
+				<p class="p1"><span>个人中心</span></p>
+				<p class="p2"><a>今日任务</a></p>
+				<p class="p3"><a>系统消息</a></p>
+				<p class="p4"><a>我的设置</a></p>
+			</div>			
+		</div>	
+		<!--右层-->
+		<div class="personal">
+			<div class="pertop">
+				<a>&lt;</a><a>个人中心</a>
+			</div>
+			<div class="permid">
+				<p>使用绑定邮箱登录</p>
+				<form>
+					<input class="permid_inp1" type="text" placeholder="绑定邮箱" /><br/>
+					<input class="permid_inp2" type="password" placeholder="请输入您的密码" />
+				</form>
+				<a class="permid_dl" href="#">登&nbsp;录</a>
+			</div>	
+			<div class="perfoot">
+				<p>没有帐号？<a href="#">赶紧注册一个吧？</a></p>
+				<p class="perfoot_p"><img src="image/sina.png"/><img src="image/qq.png"/></p>
+			</div>
+		</div>
+		<!--外层-->
+		<div id="box2">
+			<header>
+			<div class="headerbox1">
+				<a><img src="image/geren.jpg" /></a>
+			</div>			
+			<p>热&nbsp;&nbsp;点&nbsp;&nbsp;新&nbsp;&nbsp;闻</p>
+			<div class="headerbox2">
+				<img src="image/search.jpg" />
+			</div>			
+			</header>
+			<aside>
+				<isnavread></isnavread>
+			</aside>
+			<div id="view">
+				<div ng-view=""></div>
+			</div>		
+		</div>	
+	</body>
+	<script>
+		var app = angular.module('yin', ['ngRoute']);
+		app.config(function($routeProvider) {
+			$routeProvider.when('/index2', {
+				controller: 'indexCtrl',
+				templateUrl: 'view/index2.html'
+			}).when('/recommend/:id', {
+				controller: 'recommendCtrl',
+				templateUrl: 'view/recommend.html',
+			}).when('/data', {
+				controller: 'dataCtrl',
+				templateUrl: 'view/data.html'
+			}).when('/talk', {
+				controller: 'talkCtrl',
+				templateUrl: 'view/talk.html'
+			}).when('/media', {
+				controller: 'mediaCtrl',
+				templateUrl: 'view/media.html'
+			}).otherwise({
+				redirectTo: '/index2',
+			})
+		});
+		app.controller('indexCtrl', ['$scope', '$http', '$rootScope', '$routeParams', function($scope, $http, $rootScope, $routeParams) {
+				$scope.offset = 5;
+				//这个是刚进入页面时候，数据没请求回来前出现一个loading
+				$scope.loading = true;
+				var loadMoreData = function(){
+					$http.get('index.php', {
+						params: {
+						catid: '9',
+						channelid: '10000',
+						}
+					}).success(function(data) {
+						//这个是请求完数据之后让loading消失
+						$scope.loading = false;
+						console.log(data);
+						var news=data.archives;
+						$scope.news=news.slice(0,$scope.offset);
+				
+						//$scope.news = data.archives;
+						//var num=$scope.news.length;
+						//console.log(news.slice(0,7))
+						$scope.newsLun = data.focus;
+					});
+				}
+				
+			loadMoreData($scope.offset);
+			$scope.datanumber="查看更多";
+			$scope.loadMore = function() {
+				$scope.loading = true;
+				//自定义偏移量（点击查看更多增加的条数）
+				$scope.offset += 5;
+				if($scope.offset>=25){
+					$scope.datanumber="没有更多了...";
+				}
+				//$scope.offset++;
+				loadMoreData($scope.offset);
+			};
+			
+			var swiper = new Swiper('.swiper-container', {
+				npagination: '.swiper-pagination',
+				nextButton: '.swiper-button-next',
+				prevButton: '.swiper-button-prev',
+				paginationClickable: true,
+				spaceBetween: 30,
+				centeredSlides: true,
+				autoplay: 2500,
+				autoplayDisableOnIteraction: false
+			});
+			
+			
+		}]);
+
+		//详细新闻页
+		app.controller('recommendCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+
+			$http({
+				method: 'get',
+				url: 'recommend.php',
+				params: {
+					num: $routeParams.id,
+
+				}
+			}).success(function(data) {
+				console.log(data);
+				$scope.html = data;
+				localStorage.setItem("d", data)
+					//$scope.new = data.archives[$routeParams.id];
+
+			})
+
+		}]);
+		app.controller('dataCtrl', ['$scope', '$http', '$rootScope', '$routeParams', function($scope, $http, $rootScope, $routeParams) {
+			$scope.offset = 5;
+				//这个是刚进入页面时候，数据没请求回来前出现一个loading
+			$scope.loading = true;
+			var loadMoreData = function(){
+				$http.get('common.php', {
+				params: {
+					catid: '29',
+					channelid: '29',
+				}
+			}).success(function(data) {
+				//这个是请求完数据之后让loading消失
+				$scope.loading = false;
+				console.log(data);
+				var news=data.archives;
+				$scope.news=news.slice(0,$scope.offset);
+				//$scope.news = data.archives;
+			
+			});
+			}
+			loadMoreData($scope.offset);
+			$scope.datanumber="查看更多";
+			$scope.loadMore = function() {
+				$scope.loading = true;
+				//自定义偏移量（点击查看更多增加的条数）
+				$scope.offset += 5;
+				if($scope.offset>=25){
+					$scope.datanumber="没有更多了...";
+				}
+				//$scope.offset++;
+				loadMoreData($scope.offset);
+			}
+			
+		}]);
+		
+		app.controller('talkCtrl', ['$scope', '$http', '$rootScope', '$routeParams', function($scope, $http, $rootScope, $routeParams) {
+			$scope.offset = 5;
+				//这个是刚进入页面时候，数据没请求回来前出现一个loading
+			$scope.loading = true;
+			var loadMoreData = function(){
+				$http.get('common.php', {
+				params: {
+					catid: '30',
+					channelid: '30',
+				}
+			}).success(function(data) {
+				//这个是请求完数据之后让loading消失
+				$scope.loading = false;
+				console.log(data);
+				var news=data.archives;
+				$scope.news=news.slice(0,$scope.offset);
+				//$scope.news = data.archives;
+			
+			});
+			}
+			loadMoreData($scope.offset);
+			$scope.datanumber="查看更多";
+			$scope.loadMore = function() {
+				$scope.loading = true;
+				//自定义偏移量（点击查看更多增加的条数）
+				$scope.offset += 5;
+				if($scope.offset>=25){
+					$scope.datanumber="没有更多了...";
+				}
+				//$scope.offset++;
+				loadMoreData($scope.offset);
+			}
+			
+		}]);
+		
+		app.controller('mediaCtrl', ['$scope', '$http', '$rootScope', '$routeParams', function($scope, $http, $rootScope, $routeParams) {
+			$scope.offset = 5;
+				//这个是刚进入页面时候，数据没请求回来前出现一个loading
+			$scope.loading = true;
+			var loadMoreData = function(){
+				$http.get('common.php', {
+				params: {
+					catid: '33',
+					channelid: '33',
+				}
+			}).success(function(data) {
+				//这个是请求完数据之后让loading消失
+				$scope.loading = false;
+				console.log(data);
+				var news=data.archives;
+				$scope.news=news.slice(0,$scope.offset);
+				//$scope.news = data.archives;
+			
+			});
+			}
+			loadMoreData($scope.offset);
+			$scope.datanumber="查看更多";
+			$scope.loadMore = function() {
+				$scope.loading = true;
+				//自定义偏移量（点击查看更多增加的条数）
+				$scope.offset += 5;
+				if($scope.offset>=25){
+					$scope.datanumber="没有更多了...";
+				}
+				//$scope.offset++;
+				loadMoreData($scope.offset);
+			}
+			
+		}]);
+
+		app.directive('recHtml', ['$location', function($location) {
+			$scope.b = localStorage.getItem("d");
+			return {
+				restrict: 'EA', //标签和属性的写法激活此组件
+				replace: true,
+				transclude: true,
+				template: 'b',
+			}
+		}])
+
+		app.directive('isnavread', ['$location', function($location) {
+			return {
+				restrict: 'EA', //标签和属性的写法激活此组件
+				replace: true,
+				transclude: true,
+				template: '<p id="nav">' +
+					'<a ng-href="#/index" class="isNavRed mar_l15"><span>看热点</span></a>' +
+					'<a ng-href="#/data" class="mar_l28"><span>趣发现</span></a>' +
+					'<a ng-href="#/talk" class="mar_l28"><span>聊话题</span></a>' +
+					'<a ng-href="#/media" class="mar_l28"><span>会生活</span></a>' +					
+					'</p>',
+				link: function(scope, element, attrs) {
+				//	console.log(location.hash);
+				//	console.log(scope);
+					var nav = document.getElementById('nav')
+					var navs = nav.getElementsByTagName('a')
+					switch(location.hash) {
+						case '#/index':
+							angular.element(navs).removeClass('isNavRed');
+							angular.element(navs[0]).addClass('isNavRed');
+							break;
+						case '#/data':
+							angular.element(navs).removeClass('isNavRed');
+							angular.element(navs[1]).addClass('isNavRed');
+							break;
+						case '#/talk':
+							angular.element(navs).removeClass('isNavRed');
+							angular.element(navs[2]).addClass('isNavRed');
+							break;
+						case '#/media':
+							angular.element(navs).removeClass('isNavRed');
+							angular.element(navs[3]).addClass('isNavRed');
+							break;
+					}
+
+					angular.element(navs).on('click', function() {
+						//做全局的清楚
+						angular.element(navs).removeClass('isNavRed');
+						angular.element(this).addClass('isNavRed');
+					})
+				}
+			};
+			
+		}]);
+	</script>
+	<script>
+		jQuery(function($){
+		var bot=$('.box');
+		var ove=$('#box2');
+		var but=$('.headerbox1');
+		var rel=true;
+		var pl=$('.plist');		
+		var personal=$('.personal');
+		
+		but.on('click',function(){
+			if(rel){
+				bot.addClass('blo');
+				ove.animate({
+					marginLeft:'250px'
+				});
+				rel=false;
+			}else{				
+				ove.animate({
+					marginLeft:'0'
+				});
+				rel=true;
+				var Tim=setTimeout(function(){
+					bot.removeClass('blo');
+				},500);
+				
+			}
+		});
+		
+		
+	})
+	</script>
+	<script>
+		jQuery(function($){
+			var pl=$('.p1');
+			var ove=$('#box2');
+			var personal=$('.personal');
+			pl.on('click',function(){
+				personal.addClass('bb');
+				ove.animate({
+					marginLeft:'0',					
+				});	
+				personal.animate({
+					marginLeft:'0',
+				},1000)
+				
+			})
+		})
+		
+	</script>
+
+	<script>
+		jQuery(function($){
+			var per=$('.pertop');
+			var ove=$('#box2');
+			var personal=$('.personal');
+			per.on('click',function(){
+			
+				personal.animate({
+					marginLeft:'100%',			
+				},3000);	
+				
+				personal.removeClass('bb');
+			})
+		})
+	</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
